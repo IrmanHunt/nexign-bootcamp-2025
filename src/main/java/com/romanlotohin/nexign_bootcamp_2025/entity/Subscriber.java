@@ -12,7 +12,8 @@ public class Subscriber {
     @Column(unique = true, nullable = false)
     private String msisdn;
 
-    public Subscriber() {}
+    public Subscriber() {
+    }
 
     public Subscriber(String msisdn) {
         this.msisdn = msisdn;

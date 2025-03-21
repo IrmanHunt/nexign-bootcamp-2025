@@ -3,6 +3,7 @@ package com.romanlotohin.nexign_bootcamp_2025.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class CdrRecord {
@@ -26,7 +27,8 @@ public class CdrRecord {
     @Column(nullable = false)
     private LocalDateTime callEnd;
 
-    public CdrRecord() {}
+    public CdrRecord() {
+    }
 
     public CdrRecord(String callType, String callerMsisdn, String calleeMsisdn, LocalDateTime callStart, LocalDateTime callEnd) {
         this.callType = callType;
@@ -78,6 +80,22 @@ public class CdrRecord {
 
     public void setCallEnd(LocalDateTime callEnd) {
         this.callEnd = callEnd;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CdrRecord record)) return false;
+        return Objects.equals(getId(), record.getId()) &&
+                Objects.equals(getCallType(), record.getCallType()) &&
+                Objects.equals(getCallerMsisdn(), record.getCallerMsisdn()) &&
+                Objects.equals(getCalleeMsisdn(), record.getCalleeMsisdn()) &&
+                Objects.equals(getCallStart(), record.getCallStart()) && Objects.equals(getCallEnd(), record.getCallEnd());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCallType(), getCallerMsisdn(), getCalleeMsisdn(), getCallStart(), getCallEnd());
     }
 
     @Override

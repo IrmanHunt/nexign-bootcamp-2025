@@ -1,4 +1,4 @@
-package com.romanlotohin.nexign_bootcamp_2025.service;
+package com.romanlotohin.nexign_bootcamp_2025.service.generator;
 
 import com.romanlotohin.nexign_bootcamp_2025.entity.Subscriber;
 

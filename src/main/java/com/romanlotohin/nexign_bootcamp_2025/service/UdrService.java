@@ -35,7 +35,7 @@ public class UdrService {
             callEnd = LocalDateTime.of(2070, 1, 1, 0, 0, 0);
         }
 
-        List<CdrRecord> records = cdrRecordRepository.findByMsisdnAndMonth(msisdn, callStart, callEnd);
+        List<CdrRecord> records = cdrRecordRepository.findByMsisdnAndCallStartBetween(msisdn, callStart, callEnd);
 
         Duration incoming = Duration.ZERO;
         Duration outgoing = Duration.ZERO;

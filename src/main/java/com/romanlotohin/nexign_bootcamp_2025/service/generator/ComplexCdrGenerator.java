@@ -1,4 +1,4 @@
-package com.romanlotohin.nexign_bootcamp_2025.service;
+package com.romanlotohin.nexign_bootcamp_2025.service.generator;
 
 import com.romanlotohin.nexign_bootcamp_2025.entity.CdrRecord;
 import com.romanlotohin.nexign_bootcamp_2025.entity.Subscriber;
@@ -15,13 +15,16 @@ import java.util.Map;
 import java.util.Random;
 
 @Component
-public class HardCdrGenerator implements CdrGenerator {
+public class ComplexCdrGenerator implements CdrGenerator {
 
     @Autowired
     private CdrRecordRepository cdrRecordRepository;
 
-    @Value("${app.year}")
+    @Value("${app.generation.year}")
     private int year;
+
+    @Value("${app.call.interval.days:0}")
+    private int intervalDays;
 
     @Override
     public void generateCdrRecords(List<Subscriber> subscribers) {
@@ -63,7 +66,7 @@ public class HardCdrGenerator implements CdrGenerator {
             availability.put(callerNumber, callEnd.plusMinutes(delayMinutes));
             availability.put(calleeNumber, callEnd.plusMinutes(delayMinutes));
 
-            currentTime = currentTime.plusMinutes(1 + random.nextInt(60)).plusSeconds(random.nextInt(60));
+            currentTime = currentTime.plusDays(intervalDays).plusMinutes(1 + random.nextInt(60)).plusSeconds(random.nextInt(60));
         }
     }
 
