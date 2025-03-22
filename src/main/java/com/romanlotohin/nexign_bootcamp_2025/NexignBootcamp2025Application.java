@@ -9,3 +9,6 @@ public class NexignBootcamp2025Application {
         SpringApplication.run(NexignBootcamp2025Application.class, args);
     }
 }
+
+//Написать тесты
+//Сделать документацию

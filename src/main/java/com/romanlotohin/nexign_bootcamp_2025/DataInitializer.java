@@ -3,6 +3,7 @@ package com.romanlotohin.nexign_bootcamp_2025;
 import com.romanlotohin.nexign_bootcamp_2025.entity.Subscriber;
 import com.romanlotohin.nexign_bootcamp_2025.repository.SubscriberRepository;
 import com.romanlotohin.nexign_bootcamp_2025.service.generator.CdrGenerator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +14,17 @@ import java.util.List;
 public class DataInitializer implements CommandLineRunner {
     private final SubscriberRepository subscriberRepository;
     private final CdrGenerator cdrGenerator;
+    private final int generationYear;
+    private final int daysInterval;
 
-    public DataInitializer(SubscriberRepository subscriberRepository, CdrGenerator cdrGenerator) {
+    public DataInitializer(SubscriberRepository subscriberRepository,
+                           CdrGenerator cdrGenerator,
+                           @Value("${app.generation.year}") int generationYear,
+                           @Value("${app.call.interval.days:0}") int daysInterval) {
         this.subscriberRepository = subscriberRepository;
         this.cdrGenerator = cdrGenerator;
+        this.generationYear = generationYear;
+        this.daysInterval = daysInterval;
     }
 
     @Override
@@ -41,6 +49,6 @@ public class DataInitializer implements CommandLineRunner {
         );
         subscriberRepository.saveAll(subscribers);
 
-        cdrGenerator.generateCdrRecords(subscribers);
+        cdrGenerator.generateCdrRecords(subscribers, generationYear, daysInterval);
     }
 }

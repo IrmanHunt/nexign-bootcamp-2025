@@ -15,11 +15,4 @@ public interface CdrRecordRepository extends JpaRepository<CdrRecord, Long> {
     List<CdrRecord> findByMsisdnAndCallStartBetween(@Param("msisdn") String msisdn,
                                                     @Param("start") LocalDateTime callStart,
                                                     @Param("end") LocalDateTime callEnd);
-
-//    @Query("SELECT c FROM CdrRecord c " +
-//            "WHERE c.callerMsisdn = :msisdn OR c.calleeMsisdn = :msisdn")
-//    List<CdrRecord> findByMsisdn(@Param("msisdn") String msisdn);
-//
-//    @Query("SELECT c FROM CdrRecord c WHERE c.callStart >= :start AND c.callStart < :end")
-//    List<CdrRecord> findAllByCallStartBetween(@Param("start") LocalDateTime callStart, @Param("end") LocalDateTime callEnd);
 }

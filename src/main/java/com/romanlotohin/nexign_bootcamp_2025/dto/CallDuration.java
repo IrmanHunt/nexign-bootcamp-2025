@@ -1,5 +1,7 @@
 package com.romanlotohin.nexign_bootcamp_2025.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CallDuration {
     private String totalTime;
 

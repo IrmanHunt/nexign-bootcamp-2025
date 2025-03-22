@@ -34,4 +34,13 @@ public class UdrDto {
     public void setOutgoingCall(CallDuration outgoingCall) {
         this.outgoingCall = outgoingCall;
     }
+
+    @Override
+    public String toString() {
+        return "UdrDto{" +
+                "msisdn='" + msisdn + '\'' +
+                ", incomingCall=" + incomingCall +
+                ", outgoingCall=" + outgoingCall +
+                '}';
+    }
 }

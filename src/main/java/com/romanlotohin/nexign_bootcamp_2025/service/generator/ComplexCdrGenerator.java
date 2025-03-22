@@ -3,8 +3,6 @@ package com.romanlotohin.nexign_bootcamp_2025.service.generator;
 import com.romanlotohin.nexign_bootcamp_2025.entity.CdrRecord;
 import com.romanlotohin.nexign_bootcamp_2025.entity.Subscriber;
 import com.romanlotohin.nexign_bootcamp_2025.repository.CdrRecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -16,21 +14,17 @@ import java.util.Random;
 
 @Component
 public class ComplexCdrGenerator implements CdrGenerator {
+    private final CdrRecordRepository cdrRecordRepository;
 
-    @Autowired
-    private CdrRecordRepository cdrRecordRepository;
-
-    @Value("${app.generation.year}")
-    private int year;
-
-    @Value("${app.call.interval.days:0}")
-    private int intervalDays;
+    public ComplexCdrGenerator(CdrRecordRepository cdrRecordRepository) {
+        this.cdrRecordRepository = cdrRecordRepository;
+    }
 
     @Override
-    public void generateCdrRecords(List<Subscriber> subscribers) {
+    public void generateCdrRecords(List<Subscriber> subscribers, int generationYear, int daysInterval) {
         Random random = new Random();
 
-        LocalDateTime startOfYear = LocalDateTime.of(year, 1, 1, random.nextInt(6), random.nextInt(60), random.nextInt(60));
+        LocalDateTime startOfYear = LocalDateTime.of(generationYear, 1, 1, random.nextInt(6), random.nextInt(60), random.nextInt(60));
         LocalDateTime endOfYear = startOfYear.plusYears(1);
 
         Map<String, LocalDateTime> availability = new HashMap<>();
@@ -66,7 +60,7 @@ public class ComplexCdrGenerator implements CdrGenerator {
             availability.put(callerNumber, callEnd.plusMinutes(delayMinutes));
             availability.put(calleeNumber, callEnd.plusMinutes(delayMinutes));
 
-            currentTime = currentTime.plusDays(intervalDays).plusMinutes(1 + random.nextInt(60)).plusSeconds(random.nextInt(60));
+            currentTime = currentTime.plusDays(daysInterval).plusMinutes(1 + random.nextInt(60)).plusSeconds(random.nextInt(60));
         }
     }
 

@@ -3,9 +3,7 @@ package com.romanlotohin.nexign_bootcamp_2025.service.generator;
 import com.romanlotohin.nexign_bootcamp_2025.entity.CdrRecord;
 import com.romanlotohin.nexign_bootcamp_2025.entity.Subscriber;
 import com.romanlotohin.nexign_bootcamp_2025.repository.CdrRecordRepository;
-import com.romanlotohin.nexign_bootcamp_2025.service.generator.CdrGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -14,18 +12,14 @@ import java.util.Random;
 
 @Component
 public class EasyCdrGenerator implements CdrGenerator {
+    private final CdrRecordRepository cdrRecordRepository;
 
-    @Autowired
-    private CdrRecordRepository cdrRecordRepository;
-
-    @Value("${app.generation.year}")
-    private int generationYear;
-
-    @Value("${app.call.interval.days:0}")
-    private int intervalDays;
+    public EasyCdrGenerator(CdrRecordRepository cdrRecordRepository) {
+        this.cdrRecordRepository = cdrRecordRepository;
+    }
 
     @Override
-    public void generateCdrRecords(List<Subscriber> subscribers) {
+    public void generateCdrRecords(List<Subscriber> subscribers, int generationYear, int daysInterval) {
         Random random = new Random();
 
         int randomSeconds = random.nextInt(60);
@@ -58,7 +52,7 @@ public class EasyCdrGenerator implements CdrGenerator {
             CdrRecord record = new CdrRecord(callType, caller.getMsisdn(), callee.getMsisdn(), callStart, callEnd);
             cdrRecordRepository.save(record);
 
-            currentTime = callEnd.plusDays(intervalDays).plusMinutes(random.nextInt(30));
+            currentTime = callEnd.plusDays(daysInterval).plusMinutes(random.nextInt(30));
         }
     }
 }

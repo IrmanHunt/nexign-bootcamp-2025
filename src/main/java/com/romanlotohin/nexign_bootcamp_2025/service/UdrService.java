@@ -6,13 +6,16 @@ import com.romanlotohin.nexign_bootcamp_2025.entity.CdrRecord;
 import com.romanlotohin.nexign_bootcamp_2025.entity.Subscriber;
 import com.romanlotohin.nexign_bootcamp_2025.repository.CdrRecordRepository;
 import com.romanlotohin.nexign_bootcamp_2025.repository.SubscriberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UdrService {
     private final CdrRecordRepository cdrRecordRepository;
@@ -23,12 +26,17 @@ public class UdrService {
         this.subscriberRepository = subscriberRepository;
     }
 
-    public UdrDto getUdrForSubscriber(String msisdn, String month) {
-        LocalDateTime callStart;
-        LocalDateTime callEnd;
+    public UdrDto getUdrForSubscriber(String msisdn, String month, int generationYear) {
+        LocalDateTime callStart, callEnd;
 
         if (month != null && !month.isEmpty()) {
-            callStart = LocalDateTime.parse(month + "-01T00:00:00");
+            Month monthEnum;
+            try {
+                monthEnum = Month.valueOf(month.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Неверное значение месяца: " + month);
+            }
+            callStart = LocalDateTime.of(generationYear, monthEnum, 1, 0, 0);
             callEnd = callStart.plusMonths(1);
         } else {
             callStart = LocalDateTime.of(1970, 1, 1, 0, 0, 0);
@@ -37,8 +45,7 @@ public class UdrService {
 
         List<CdrRecord> records = cdrRecordRepository.findByMsisdnAndCallStartBetween(msisdn, callStart, callEnd);
 
-        Duration incoming = Duration.ZERO;
-        Duration outgoing = Duration.ZERO;
+        Duration incoming = Duration.ZERO, outgoing = Duration.ZERO;
 
         for (CdrRecord record : records) {
             Duration callDuration = Duration.between(record.getCallStart(), record.getCallEnd());
@@ -49,13 +56,15 @@ public class UdrService {
             }
         }
 
-        return new UdrDto(msisdn, new CallDuration(formatDuration(incoming)), new CallDuration(formatDuration(outgoing)));
+        UdrDto udr = new UdrDto(msisdn, new CallDuration(formatDuration(incoming)), new CallDuration(formatDuration(outgoing)));
+        log.info("UDR для абонента {}: {}", msisdn, udr);
+        return udr;
     }
 
-    public List<UdrDto> getUdrForAllSubscribers(String month) {
+    public List<UdrDto> getUdrForAllSubscribers(String month, int generationYear) {
         List<Subscriber> subscribers = subscriberRepository.findAll();
         return subscribers.stream()
-                .map(subscriber -> getUdrForSubscriber(subscriber.getMsisdn(), month))
+                .map(subscriber -> getUdrForSubscriber(subscriber.getMsisdn(), month, generationYear))
                 .collect(Collectors.toList());
     }
 
