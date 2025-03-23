@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Класс для инициализации данных при запуске приложения.
+ * Загружает абонентов в репозиторий и генерирует CDR записи
+ */
 @Component
 public class DataInitializer implements CommandLineRunner {
     private final SubscriberRepository subscriberRepository;
@@ -17,6 +21,14 @@ public class DataInitializer implements CommandLineRunner {
     private final int generationYear;
     private final int daysInterval;
 
+    /**
+     * Конструктор для инициализации данных
+     *
+     * @param subscriberRepository репозиторий абонентов
+     * @param cdrGenerator генератор CDR записей
+     * @param generationYear год генерации CDR записей
+     * @param daysInterval интервал между звонками в днях
+     */
     public DataInitializer(SubscriberRepository subscriberRepository,
                            CdrGenerator cdrGenerator,
                            @Value("${app.generation.year}") int generationYear,
@@ -27,6 +39,9 @@ public class DataInitializer implements CommandLineRunner {
         this.daysInterval = daysInterval;
     }
 
+    /**
+     * Запускает процесс инициализации данных: сохраняет абонентов и генерирует CDR записи
+     */
     @Override
     public void run(String... args) {
 

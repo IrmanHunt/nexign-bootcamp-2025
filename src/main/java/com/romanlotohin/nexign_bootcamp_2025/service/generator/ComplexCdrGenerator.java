@@ -12,14 +12,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * Класс для генерации сложных записей о звонках CDR.
+ * Реализация интерфейса {@link CdrGenerator}
+ */
 @Component
 public class ComplexCdrGenerator implements CdrGenerator {
     private final CdrRecordRepository cdrRecordRepository;
 
+    /**
+     * Конструктор для инициализации генератора записей о звонках
+     *
+     * @param cdrRecordRepository репозиторий записей CDR
+     */
     public ComplexCdrGenerator(CdrRecordRepository cdrRecordRepository) {
         this.cdrRecordRepository = cdrRecordRepository;
     }
 
+    /**
+     * Генерирует записи о звонках для списка абонентов за заданный год и интервал дней.
+     * Записи создаются случайным образом, с учетом доступности абонентов и продолжительности звонков.
+     * Звонки могут пересекаться друг с другом
+     *
+     * @param subscribers список абонентов, для которых генерируются записи
+     * @param generationYear год, для которого генерируются записи
+     * @param daysInterval интервал в днях между звонками
+     */
     @Override
     public void generateCdrRecords(List<Subscriber> subscribers, int generationYear, int daysInterval) {
         Random random = new Random();
@@ -64,6 +82,16 @@ public class ComplexCdrGenerator implements CdrGenerator {
         }
     }
 
+    /**
+     * Выбирает случайного доступного абонента из списка
+     *
+     * @param subscribers список всех абонентов
+     * @param availability map с временем доступности абонентов
+     * @param currentTime текущее время для проверки доступности
+     * @param random объект для случайного выбора
+     * @param excludeMsisdn номер абонента, который не может быть выбран
+     * @return выбранного абонента или null, если все абоненты недоступны
+     */
     private Subscriber getRandomAvailableSubscriber(List<Subscriber> subscribers,
                                                     Map<String, LocalDateTime> availability,
                                                     LocalDateTime currentTime,
@@ -83,6 +111,13 @@ public class ComplexCdrGenerator implements CdrGenerator {
         return available.get(random.nextInt(available.size()));
     }
 
+    /**
+     * Генерирует продолжительность звонка.
+     * Длительность звонка генерируется случайным образом с разными шансами на продолжительность
+     *
+     * @param random объект для случайного выбора
+     * @return продолжительность звонка
+     */
     private Duration generateCallDuration(Random random) {
         int chance = random.nextInt(100);
         int durationMinutes;

@@ -15,17 +15,37 @@ import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис для получения UDR абонентов в переданных временных промежутках
+ */
 @Slf4j
 @Service
 public class UdrService {
     private final CdrRecordRepository cdrRecordRepository;
     private final SubscriberRepository subscriberRepository;
 
+    /**
+     * Конструктор для инициализации сервиса с зависимостями
+     *
+     * @param cdrRecordRepository репозиторий записей CDR
+     * @param subscriberRepository репозиторий абонентов
+     */
     public UdrService(CdrRecordRepository cdrRecordRepository, SubscriberRepository subscriberRepository) {
         this.cdrRecordRepository = cdrRecordRepository;
         this.subscriberRepository = subscriberRepository;
     }
 
+    /**
+     * Получение UDR для конкретного абонента за определенный месяц.
+     * Метод рассчитывает продолжительность входящих и исходящих звонков для указанного абонента
+     * в пределах заданного месяца и года. Если месяц не указан, рассматривается весь диапазон времени
+     *
+     * @param msisdn номер абонента
+     * @param month месяц в виде строки (например, "aptil")
+     * @param generationYear год, за который нужно сгенерировать отчет
+     * @return DTO объект с данными о длительности входящих и исходящих звонков
+     * @throws IllegalArgumentException если месяц указан неверно
+     */
     public UdrDto getUdrForSubscriber(String msisdn, String month, int generationYear) {
         LocalDateTime callStart, callEnd;
 
@@ -61,6 +81,15 @@ public class UdrService {
         return udr;
     }
 
+    /**
+     * Получение UDR для всех абонентов за определенный месяц и год.
+     * Метод возвращает список UDR для всех абонентов, включая их входящие и исходящие звонки
+     * за указанный месяц и год
+     *
+     * @param month месяц в виде строки (например, "april")
+     * @param generationYear год, за который нужно сгенерировать отчет
+     * @return Список DTO объектов с данными о длительности входящих и исходящих звонков для каждого абонента
+     */
     public List<UdrDto> getUdrForAllSubscribers(String month, int generationYear) {
         List<Subscriber> subscribers = subscriberRepository.findAll();
         return subscribers.stream()
@@ -68,6 +97,12 @@ public class UdrService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Форматирование длительности звонка в строковый формат "HH:mm:ss"
+     *
+     * @param duration длительность звонка
+     * @return Строковое представление длительности в формате "HH:mm:ss"
+     */
     private String formatDuration(Duration duration) {
         long hours = duration.toHours();
         long minutes = duration.toMinutes() % 60;

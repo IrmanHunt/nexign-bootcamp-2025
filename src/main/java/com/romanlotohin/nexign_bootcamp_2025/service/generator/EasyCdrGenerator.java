@@ -10,14 +10,33 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Класс для генерации простых записей о звонках CDR.
+ * Реализация интерфейса {@link CdrGenerator
+ */
 @Component
 public class EasyCdrGenerator implements CdrGenerator {
     private final CdrRecordRepository cdrRecordRepository;
 
+    /**
+     * Конструктор для инициализации генератора записей о звонках
+     *
+     * @param cdrRecordRepository репозиторий записей CDR
+     */
     public EasyCdrGenerator(CdrRecordRepository cdrRecordRepository) {
         this.cdrRecordRepository = cdrRecordRepository;
     }
 
+    /**
+     * Генерирует записи о звонках для списка абонентов за заданный год и интервал дней.
+     * Записи создаются с фиксированными интервалами между звонками. Каждый звонок случайным образом
+     * связывает двух абонентов, с заданной продолжительностью звонка и типом.
+     * Звонки не могут пересекаться
+     *
+     * @param subscribers список абонентов, для которых генерируются записи
+     * @param generationYear год, для которого генерируются записи
+     * @param daysInterval интервал в днях между звонками
+     */
     @Override
     public void generateCdrRecords(List<Subscriber> subscribers, int generationYear, int daysInterval) {
         Random random = new Random();
