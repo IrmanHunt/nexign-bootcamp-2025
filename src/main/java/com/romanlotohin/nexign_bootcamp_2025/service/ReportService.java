@@ -3,7 +3,6 @@ package com.romanlotohin.nexign_bootcamp_2025.service;
 import com.romanlotohin.nexign_bootcamp_2025.dto.ReportRequest;
 import com.romanlotohin.nexign_bootcamp_2025.entity.CdrRecord;
 import com.romanlotohin.nexign_bootcamp_2025.repository.CdrRecordRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
