@@ -1,7 +1,5 @@
 package com.romanlotohin.nexign_bootcamp_2025.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class CallDuration {
     private String totalTime;
 
@@ -15,5 +13,12 @@ public class CallDuration {
 
     public void setTotalTime(String totalTime) {
         this.totalTime = totalTime;
+    }
+
+    @Override
+    public String toString() {
+        return "CallDuration{" +
+                "totalTime='" + totalTime + '\'' +
+                '}';
     }
 }

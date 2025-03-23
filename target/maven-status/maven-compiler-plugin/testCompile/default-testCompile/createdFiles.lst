@@ -1,0 +1,8 @@
+com\romanlotohin\nexign_bootcamp_2025\service\generator\EasyCdrGeneratorTest.class
+com\romanlotohin\nexign_bootcamp_2025\service\ReportServiceTest.class
+com\romanlotohin\nexign_bootcamp_2025\DataInitializerTest.class
+com\romanlotohin\nexign_bootcamp_2025\service\generator\ComplexCdrGeneratorTest.class
+com\romanlotohin\nexign_bootcamp_2025\service\UdrServiceTest.class
+com\romanlotohin\nexign_bootcamp_2025\NexignBootcamp2025ApplicationTests.class
+com\romanlotohin\nexign_bootcamp_2025\controller\UdrControllerTest.class
+com\romanlotohin\nexign_bootcamp_2025\controller\ReportControllerTest.class

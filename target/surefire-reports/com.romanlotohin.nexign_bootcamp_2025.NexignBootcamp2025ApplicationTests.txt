@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.romanlotohin.nexign_bootcamp_2025.NexignBootcamp2025ApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.187 s -- in com.romanlotohin.nexign_bootcamp_2025.NexignBootcamp2025ApplicationTests

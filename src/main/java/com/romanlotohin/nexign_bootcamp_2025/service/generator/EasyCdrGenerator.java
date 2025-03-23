@@ -4,6 +4,8 @@ import com.romanlotohin.nexign_bootcamp_2025.entity.CdrRecord;
 import com.romanlotohin.nexign_bootcamp_2025.entity.Subscriber;
 import com.romanlotohin.nexign_bootcamp_2025.repository.CdrRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

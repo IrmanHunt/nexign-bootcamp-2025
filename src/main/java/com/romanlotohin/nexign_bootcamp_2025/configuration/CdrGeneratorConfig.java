@@ -7,12 +7,9 @@ import com.romanlotohin.nexign_bootcamp_2025.service.generator.ComplexCdrGenerat
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
-/**
- * Конфигурация для генератора записей о звонках CDR.
- * В зависимости от значения свойства приложения, передаваемого через `app.cdr-generation-method`,
- * будет выбран соответствующий метод генерации: простой или сложный.
- */
+
 @Configuration
 public class CdrGeneratorConfig {
 
@@ -25,6 +22,7 @@ public class CdrGeneratorConfig {
      * @throws IllegalArgumentException если метод генерации не распознан
      */
     @Bean
+    @Primary
     public CdrGenerator cdrGenerator(@Value("${app.cdr-generation-method}") String cdrGenerationMethod,
                                      CdrRecordRepository cdrRecordRepository) {
         if ("easy".equalsIgnoreCase(cdrGenerationMethod)) {

@@ -1,0 +1,17 @@
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\configuration\CdrGeneratorConfig.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\controller\ReportController.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\controller\UdrController.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\DataInitializer.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\dto\CallDuration.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\dto\ReportRequest.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\dto\UdrDto.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\entity\CdrRecord.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\entity\Subscriber.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\NexignBootcamp2025Application.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\repository\CdrRecordRepository.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\repository\SubscriberRepository.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\service\generator\CdrGenerator.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\service\generator\ComplexCdrGenerator.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\service\generator\EasyCdrGenerator.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\service\ReportService.java
+C:\Users\user\Desktop\nexign-bootcamp-2025\src\main\java\com\romanlotohin\nexign_bootcamp_2025\service\UdrService.java
